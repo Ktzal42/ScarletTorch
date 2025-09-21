@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://bqj2drkyoa7y2"]
+[gd_scene load_steps=10 format=3 uid="uid://bqj2drkyoa7y2"]
 
 [ext_resource type="PackedScene" uid="uid://c4r2w1fep21bb" path="res://scenes/player.tscn" id="1_uwrxv"]
 [ext_resource type="Texture2D" uid="uid://gtm7ykwhbp0p" path="res://assets/brackeys_platformer_assets/sprites/world_tileset.png" id="1_yqjtg"]
 [ext_resource type="PackedScene" uid="uid://dlg5uxxas4pfm" path="res://scenes/platform.tscn" id="3_lnu2h"]
+[ext_resource type="PackedScene" uid="uid://d02m640s0g1mn" path="res://scenes/coin.tscn" id="4_lbhrr"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lnu2h"]
 texture = ExtResource("1_yqjtg")
@@ -232,3 +233,6 @@ autoplay = "move"
 
 [node name="Platform2" parent="." instance=ExtResource("3_lnu2h")]
 position = Vector2(94, -27)
+
+[node name="Coin" parent="." instance=ExtResource("4_lbhrr")]
+position = Vector2(220, -38)
