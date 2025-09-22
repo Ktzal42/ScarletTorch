@@ -11,6 +11,7 @@ const SPEED = 130.0
 const JUMP_VELOCITY = -300.0
 const JUMP1_VELOCITY = -100
 
+#on death function
 func die():
 	death = true
 	animated_sprite_2d.play("die")
@@ -19,16 +20,18 @@ func die():
 		print("died")
 		audio_stream_player_2d.play()
 		audio_stream_player.stop()
-	
+		
+	#make raven scene appear when died
 	var nheight= -7
 	var nwidth= -14
 	var ravenscene = raven.instantiate()
 	ravenscene.position = Vector2(nwidth, nheight)
 	add_child(ravenscene)
-		
 	
-
 func _physics_process(delta: float) -> void:
+	#when pressed esc it call title screen scene
+	if Input.is_action_just_pressed("esc"):
+		get_tree().change_scene_to_file("res://scenes/title_screen.tscn")	
 # Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
@@ -38,7 +41,6 @@ func _physics_process(delta: float) -> void:
 		velocity.y = JUMP_VELOCITY
 		
 	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.	
 	var direction := Input.get_axis("left", "right")
 	if direction:
 		velocity.x = direction * SPEED 
@@ -57,13 +59,5 @@ func _physics_process(delta: float) -> void:
 	if direction !=0 and death == false:
 		animated_sprite_2d.play("run")
 		#dying animation connected with killzone
-		
-
-
-	
-
-			
-
-
 
 	move_and_slide()
