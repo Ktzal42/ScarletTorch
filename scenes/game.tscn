@@ -1,12 +1,16 @@
-[gd_scene load_steps=15 format=3 uid="uid://bqj2drkyoa7y2"]
+[gd_scene load_steps=22 format=3 uid="uid://bqj2drkyoa7y2"]
 
 [ext_resource type="Script" uid="uid://duu7jsy1iqhh7" path="res://scripts/game_manager.gd" id="1_u5sy4"]
 [ext_resource type="PackedScene" uid="uid://c4r2w1fep21bb" path="res://scenes/player.tscn" id="1_uwrxv"]
 [ext_resource type="Texture2D" uid="uid://gtm7ykwhbp0p" path="res://assets/brackeys_platformer_assets/sprites/world_tileset.png" id="1_yqjtg"]
 [ext_resource type="PackedScene" uid="uid://dlg5uxxas4pfm" path="res://scenes/platform.tscn" id="3_lnu2h"]
+[ext_resource type="AudioStream" uid="uid://b0jh7muhsos2e" path="res://assets/brackeys_platformer_assets/sounds/explosion.wav" id="4_gee14"]
+[ext_resource type="FontFile" uid="uid://dso88dtrsj4pe" path="res://assets/brackeys_platformer_assets/fonts/PixelOperator8.ttf" id="4_kvpfn"]
 [ext_resource type="PackedScene" uid="uid://d02m640s0g1mn" path="res://scenes/coin.tscn" id="4_lbhrr"]
 [ext_resource type="PackedScene" uid="uid://b2rgcyndiijye" path="res://scenes/killzone.tscn" id="5_iywne"]
 [ext_resource type="AudioStream" uid="uid://uuhl1svyv80c" path="res://assets/brackeys_platformer_assets/sounds/coin.wav" id="6_p57ef"]
+[ext_resource type="AudioStream" uid="uid://ca62db74feb3e" path="res://assets/brackeys_platformer_assets/music/time_for_adventure.mp3" id="9_kvpfn"]
+[ext_resource type="PackedScene" uid="uid://gaxiovsyq1qf" path="res://scenes/slime.tscn" id="10_vtaks"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lnu2h"]
 texture = ExtResource("1_yqjtg")
@@ -216,6 +220,44 @@ distance = -135.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iywne"]
 
+[sub_resource type="Animation" id="Animation_kvpfn"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0009999999),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(480, 101), Vector2(560, 101)]
+}
+
+[sub_resource type="Animation" id="Animation_vtaks"]
+resource_name = "yol"
+length = 2.0
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(480, 101), Vector2(560, 101)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dinhu"]
+_data = {
+&"RESET": SubResource("Animation_kvpfn"),
+&"yol": SubResource("Animation_vtaks")
+}
+
 [node name="game" type="Node2D"]
 
 [node name="GameManager" type="Node" parent="."]
@@ -225,10 +267,20 @@ script = ExtResource("1_u5sy4")
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_lbhrr")
 format = 2
-layer_0/tile_data = PackedInt32Array(131071, 0, 0, 65536, 0, 0, 65537, 0, 0, 65538, 0, 0, 65539, 0, 0, 4, 0, 0, 5, 0, 0, 6, 0, 0, -131065, 0, 0, -131064, 0, 0, -131063, 0, 0, 196615, 458752, 0, 196616, 458752, 0, 196617, 458752, 0, 196618, 458752, 0, 196619, 458752, 0, 196620, 458752, 0, 196621, 458752, 0, 262158, 458752, 0, 262159, 458752, 0, 262160, 458752, 0, 262161, 589824, 0, 262162, 655360, 0, 262163, 720896, 0, 262164, 458752, 0, 262165, 458752, 0, 262166, 458752, 0, 262167, 393216, 0, 262168, 393216, 0, 262169, 393216, 0, 393242, 393216, 0, 393243, 393216, 0, 393244, 393216, 0, 393252, 393216, 0, 393253, 393216, 0, 393254, 393216, 0, 393255, 393216, 0, -131059, 0, 0, -131058, 0, 0, -131057, 0, 0, -131056, 0, 0, -131055, 0, 0, -131054, 0, 0, 23, 0, 0, 24, 0, 0, 25, 0, 0, 26, 0, 0, 27, 0, 0, 28, 0, 0, 29, 0, 0, 30, 0, 0, 131104, 0, 0, 131105, 0, 0, 131106, 0, 0, 131107, 0, 0, -196593, 0, 5, -262129, 0, 4, -327665, 0, 4, -393201, 0, 4, -458737, 0, 4, -524273, 0, 4, -589809, 0, 4, -655345, 0, 4, -720881, 0, 4, -786417, 0, 4, -851953, 0, 4, -917489, 0, 4, -983025, 0, 4, -1048561, 0, 3, -65509, 196608, 8, -131045, 196608, 7, -196581, 131072, 4, -262117, 131072, 4, -327653, 131072, 4, -393189, 131072, 4, -458725, 131072, 4, -524261, 131072, 4, -589797, 131072, 4, -655333, 131072, 4, -720869, 131072, 4, -786405, 131072, 4, -851941, 131072, 4, -917477, 131072, 4, -983013, 131072, 4, 34, 131072, 4)
+layer_0/tile_data = PackedInt32Array(131071, 0, 0, 65536, 0, 0, 65537, 0, 0, 65538, 0, 0, 65539, 0, 0, 4, 0, 0, 5, 0, 0, 6, 0, 0, -131065, 0, 0, -131064, 0, 0, -131063, 0, 0, 196615, 458752, 0, 196616, 458752, 0, 196617, 458752, 0, 196618, 458752, 0, 196619, 458752, 0, 196620, 458752, 0, 196621, 458752, 0, 262158, 458752, 0, 262159, 458752, 0, 262160, 458752, 0, 262161, 589824, 0, 262162, 655360, 0, 262163, 720896, 0, 262164, 458752, 0, 262165, 458752, 0, 262166, 458752, 0, 262167, 393216, 0, 262168, 393216, 0, 262169, 393216, 0, 393242, 393216, 0, 393243, 393216, 0, 393244, 393216, 0, 393252, 393216, 0, 393253, 393216, 0, 393254, 393216, 0, 393255, 393216, 0, -131059, 0, 0, -131058, 0, 0, -131057, 0, 0, -131056, 0, 0, -131055, 0, 0, -131054, 0, 0, 23, 0, 0, 24, 0, 0, 25, 0, 0, 26, 0, 0, 27, 0, 0, 28, 0, 0, 29, 0, 0, 30, 0, 0, 131104, 0, 0, 131105, 0, 0, 131106, 0, 0, 131107, 0, 0, -196593, 0, 5, -262129, 0, 4, -327665, 0, 4, -393201, 0, 4, -458737, 0, 4, -524273, 0, 4, -589809, 0, 4, -655345, 0, 4, -720881, 0, 4, -786417, 0, 4, -851953, 0, 4, -917489, 0, 4, -983025, 0, 4, -1048561, 0, 3, -65509, 196608, 8, -131045, 196608, 7, -196581, 131072, 4, -262117, 131072, 4, -327653, 131072, 4, -393189, 131072, 4, -458725, 131072, 4, -524261, 131072, 4, -589797, 131072, 4, -655333, 131072, 4, -720869, 131072, 4, -786405, 131072, 4, -851941, 131072, 4, -917477, 131072, 4, -983013, 131072, 4, 34, 131072, 4, 196632, 524288, 0, 196633, 524288, 0, 131108, 524288, 1, 65572, 524288, 1, 65573, 524288, 1, 37, 524288, 1, -65499, 524288, 1, -65498, 524288, 1, -131034, 524288, 1, -196570, 524288, 1, -262106, 524288, 1, -327642, 524288, 1, -393178, 524288, 1, -458714, 524288, 1)
 
 [node name="Player" parent="." instance=ExtResource("1_uwrxv")]
 position = Vector2(10, 4)
+
+[node name="ScoreLabel" type="Label" parent="Player"]
+offset_left = -140.0
+offset_top = -72.0
+offset_right = 86.0
+offset_bottom = -23.0
+theme_override_fonts/font = ExtResource("4_kvpfn")
+text = "You collected  0 amount coins"
+horizontal_alignment = 1
+autowrap_mode = 2
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2(0, 4)
@@ -238,14 +290,8 @@ limit_top = -10000001
 limit_right = 10000002
 limit_bottom = 199
 
-[node name="ScoreLabel" type="Label" parent="Player"]
-offset_left = -140.0
-offset_top = -72.0
-offset_right = 86.0
-offset_bottom = -34.0
-text = "You collected  0 amount coins"
-horizontal_alignment = 1
-autowrap_mode = 2
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Player"]
+stream = ExtResource("4_gee14")
 
 [node name="Platform" parent="." instance=ExtResource("3_lnu2h")]
 position = Vector2(352, 5)
@@ -285,3 +331,25 @@ shape = SubResource("RectangleShape2D_iywne")
 
 [node name="Coin2" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_p57ef")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("9_kvpfn")
+volume_db = -8.078
+autoplay = true
+
+[node name="Node2D" parent="." instance=ExtResource("10_vtaks")]
+position = Vector2(232, 52)
+
+[node name="Platform3" parent="." instance=ExtResource("3_lnu2h")]
+position = Vector2(480, 101)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Platform3"]
+libraries = {
+&"": SubResource("AnimationLibrary_dinhu")
+}
+autoplay = "yol"
+
+[node name="Coin5" parent="." instance=ExtResource("4_lbhrr")]
+position = Vector2(624, 90)
+
+[connection signal="input_event" from="Player" to="Player" method="_on_input_event"]

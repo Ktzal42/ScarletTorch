@@ -1,8 +1,11 @@
 extends CharacterBody2D
-
+@onready var audio_stream_player: AudioStreamPlayer2D = $"../AudioStreamPlayer2D"
+@onready var audio_stream_player_2d: AudioStreamPlayer2D = $AudioStreamPlayer2D
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
+
+
 var death: bool = false
-	
+var raven = preload("res://scenes/raven.tscn")
 
 const SPEED = 130.0
 const JUMP_VELOCITY = -300.0
@@ -14,7 +17,16 @@ func die():
 	
 	if death == true:
 		print("died")
+		audio_stream_player_2d.play()
+		audio_stream_player.stop()
+	
+	var nheight= -7
+	var nwidth= -14
+	var ravenscene = raven.instantiate()
+	ravenscene.position = Vector2(nwidth, nheight)
+	add_child(ravenscene)
 		
+	
 
 func _physics_process(delta: float) -> void:
 # Add the gravity.
