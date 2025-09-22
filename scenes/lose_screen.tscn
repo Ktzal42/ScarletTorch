@@ -1,6 +1,15 @@
-[gd_scene load_steps=2 format=3 uid="uid://qey7awou20fa"]
+[gd_scene load_steps=6 format=3 uid="uid://qey7awou20fa"]
 
 [ext_resource type="Script" uid="uid://cumg26dtl6o4n" path="res://scripts/lose_screen.gd" id="1_uglf1"]
+[ext_resource type="PackedScene" uid="uid://c4r2w1fep21bb" path="res://scenes/player.tscn" id="2_73mov"]
+[ext_resource type="AudioStream" uid="uid://coxnq38vdf4n5" path="res://assets/brackeys_platformer_assets/sounds/hurt.wav" id="3_v2sw8"]
+
+[sub_resource type="GDScript" id="GDScript_73mov"]
+script/source = "extends Area2D
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v2sw8"]
+size = Vector2(96, 647.5)
 
 [node name="Lose screen" type="Node2D"]
 script = ExtResource("1_uglf1")
@@ -12,4 +21,18 @@ theme_override_font_sizes/font_size = 81
 text = "PRINCESS SAYS YOU DON'T HAVE ENOUGH MONEY AND SHE WILL NEVER HANG WITH POOR BASTARD LIKE YOU"
 autowrap_mode = 2
 
+[node name="Player" parent="." instance=ExtResource("2_73mov")]
+position = Vector2(-44, 162)
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Player"]
+stream = ExtResource("3_v2sw8")
+
+[node name="loosemusic" type="Area2D" parent="."]
+script = SubResource("GDScript_73mov")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="loosemusic"]
+position = Vector2(-54, 335.25)
+shape = SubResource("RectangleShape2D_v2sw8")
+
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="body_entered" from="loosemusic" to="." method="_on_loosemusic_body_entered"]
