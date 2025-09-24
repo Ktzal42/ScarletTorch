@@ -1,8 +1,25 @@
-[gd_scene load_steps=11 format=3 uid="uid://gaxiovsyq1qf"]
+[gd_scene load_steps=17 format=3 uid="uid://gaxiovsyq1qf"]
 
 [ext_resource type="Texture2D" uid="uid://ctff41ekalrt" path="res://assets/brackeys_platformer_assets/sprites/slime_purple.png" id="1_p2gj0"]
 [ext_resource type="PackedScene" uid="uid://b2rgcyndiijye" path="res://scenes/killzone.tscn" id="2_n6pvg"]
 [ext_resource type="Script" uid="uid://3bl3ue7rdacf" path="res://scripts/slime.gd" id="3_n6pvg"]
+[ext_resource type="Script" uid="uid://0b0ffagkcyei" path="res://scripts/hurtbox.gd" id="3_pjw23"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vnioy"]
+atlas = ExtResource("1_p2gj0")
+region = Rect2(48, 48, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v5wyi"]
+atlas = ExtResource("1_p2gj0")
+region = Rect2(0, 48, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0l8pv"]
+atlas = ExtResource("1_p2gj0")
+region = Rect2(24, 48, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2xjuo"]
+atlas = ExtResource("1_p2gj0")
+region = Rect2(72, 48, 24, 24)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pjw23"]
 atlas = ExtResource("1_p2gj0")
@@ -24,6 +41,23 @@ region = Rect2(72, 24, 24, 24)
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_vnioy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v5wyi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0l8pv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2xjuo")
+}],
+"loop": false,
+"name": &"damage",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_pjw23")
 }, {
 "duration": 1.0,
@@ -40,6 +74,9 @@ animations = [{
 "speed": 10.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2npkn"]
+size = Vector2(12, 15)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0l8pv"]
 size = Vector2(10, 14)
 
@@ -50,9 +87,18 @@ script = ExtResource("3_n6pvg")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_v5wyi")
+animation = &"damage"
 autoplay = "default"
-frame = 3
-frame_progress = 0.3609671
+
+[node name="myhurtbox" type="Area2D" parent="AnimatedSprite2D"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("3_pjw23")
+metadata/_custom_type_script = "uid://0b0ffagkcyei"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatedSprite2D/myhurtbox"]
+position = Vector2(0, 4.5)
+shape = SubResource("RectangleShape2D_2npkn")
 
 [node name="Killzone" parent="." instance=ExtResource("2_n6pvg")]
 
@@ -69,4 +115,5 @@ target_position = Vector2(11, 0)
 position = Vector2(0, 5)
 target_position = Vector2(-11, 0)
 
+[connection signal="area_exited" from="AnimatedSprite2D/myhurtbox" to="." method="_on_myhurtbox_area_exited"]
 [connection signal="area_entered" from="Killzone" to="." method="_on_killzone_area_entered"]

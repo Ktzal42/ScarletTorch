@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://gaxiovsyq1qf" path="res://scenes/slime.tscn" id="10_vtaks"]
 [ext_resource type="PackedScene" uid="uid://bosi3gy161wxj" path="res://scenes/princess.tscn" id="12_dinhu"]
 [ext_resource type="AudioStream" uid="uid://da7pfvxjqcbkd" path="res://assets/brackeys_platformer_assets/sounds/power_up.wav" id="13_kvuet"]
+[ext_resource type="PackedScene" uid="uid://gd0ewuuxjly0" path="res://scenes/sword.tscn" id="14_trtic"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lnu2h"]
 texture = ExtResource("1_yqjtg")
@@ -220,8 +221,6 @@ _data = {
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_p57ef"]
 distance = -135.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_iywne"]
-
 [sub_resource type="Animation" id="Animation_kvpfn"]
 length = 0.001
 tracks/0/type = "value"
@@ -269,6 +268,7 @@ script = ExtResource("1_u5sy4")
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_lbhrr")
 format = 2
+layer_0/z_index = 5
 layer_0/tile_data = PackedInt32Array(131071, 0, 0, 65536, 0, 0, 65537, 0, 0, 65538, 0, 0, 65539, 0, 0, 4, 0, 0, 5, 0, 0, 6, 0, 0, -131065, 0, 0, -131064, 0, 0, -131063, 0, 0, 196615, 458752, 0, 196616, 458752, 0, 196617, 458752, 0, 196618, 458752, 0, 196619, 458752, 0, 196620, 458752, 0, 196621, 458752, 0, 262158, 458752, 0, 262159, 458752, 0, 262160, 458752, 0, 262161, 589824, 0, 262162, 655360, 0, 262163, 720896, 0, 262164, 458752, 0, 262165, 458752, 0, 262166, 458752, 0, 262167, 393216, 0, 262168, 393216, 0, 262169, 393216, 0, 393242, 393216, 0, 393243, 393216, 0, 393244, 393216, 0, 393252, 393216, 0, 393253, 393216, 0, 393254, 393216, 0, 393255, 393216, 0, -131059, 0, 0, -131058, 0, 0, -131057, 0, 0, -131056, 0, 0, -131055, 0, 0, -131054, 0, 0, 23, 0, 0, 24, 0, 0, 25, 0, 0, 26, 0, 0, 27, 0, 0, 28, 0, 0, 29, 0, 0, 30, 0, 0, 131104, 0, 0, 131105, 0, 0, 131106, 0, 0, 131107, 0, 0, -196593, 0, 5, -262129, 0, 4, -327665, 0, 4, -393201, 0, 4, -458737, 0, 4, -524273, 0, 4, -589809, 0, 4, -655345, 0, 4, -720881, 0, 4, -786417, 0, 4, -851953, 0, 4, -917489, 0, 4, -983025, 0, 4, -1048561, 0, 3, -65509, 196608, 8, -131045, 196608, 7, -196581, 131072, 4, -262117, 131072, 4, -327653, 131072, 4, -393189, 131072, 4, -458725, 131072, 4, -524261, 131072, 4, -589797, 131072, 4, -655333, 131072, 4, -720869, 131072, 4, -786405, 131072, 4, -851941, 131072, 4, -917477, 131072, 4, -983013, 131072, 4, 34, 131072, 4, 196632, 524288, 0, 196633, 524288, 0, 131108, 524288, 1, 65572, 524288, 1, 65573, 524288, 1, 37, 524288, 1, -65499, 524288, 1, -65498, 524288, 1, -131034, 524288, 1, -196570, 524288, 1, -262106, 524288, 1, -327642, 524288, 1, -393178, 524288, 1, -458714, 524288, 1, 393259, 262144, 0, 393260, 262144, 0, 393261, 262144, 0, 393262, 262144, 0, 327727, 262144, 0, 262192, 262144, 0, 196657, 262144, 0, 131122, 262144, 0, 131123, 262144, 0, 131124, 262144, 0, 131125, 262144, 0, 393263, 262144, 1, 327728, 262144, 1, 262193, 262144, 1, 196658, 262144, 1, 196659, 262144, 1, 196660, 262144, 1, 196661, 262144, 1, 393256, 589824, 0, 393257, 655360, 1, 393258, 720896, 2, 65589, 131072, 1, 53, 65536, 8)
 
 [node name="Player" parent="." instance=ExtResource("1_uwrxv")]
@@ -327,10 +327,6 @@ position = Vector2(520, 25)
 [node name="Killzone2" parent="." instance=ExtResource("5_iywne")]
 position = Vector2(233, 116)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone2"]
-position = Vector2(-98, -160)
-shape = SubResource("RectangleShape2D_iywne")
-
 [node name="Coin2" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_p57ef")
 
@@ -360,5 +356,8 @@ scale = Vector2(0.24, 0.24)
 
 [node name="winsound2" type="AudioStreamPlayer2D" parent="Princess"]
 stream = ExtResource("13_kvuet")
+
+[node name="Sword" parent="." instance=ExtResource("14_trtic")]
+position = Vector2(397, 56)
 
 [connection signal="input_event" from="Player" to="Player" method="_on_input_event"]
