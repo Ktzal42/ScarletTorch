@@ -15,6 +15,10 @@ run/main_scene="uid://bsjwoogqqy062"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+Sword="*res://scripts/sword.gd"
+
 [input]
 
 jump={

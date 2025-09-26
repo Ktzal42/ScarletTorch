@@ -1,7 +1,15 @@
 extends Node2D
+
+
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
-func _on_ready() -> void:
-	if Input.is_action_just_pressed("hit"):
+var value = 0
+func control():
+	if animation_player.is_playing():
+		value += 5
+	else:
+		value -= 5
+
+func swing():
 		animation_player.play("swing")
 	

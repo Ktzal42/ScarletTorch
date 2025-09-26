@@ -33,9 +33,23 @@ tracks/1/keys = {
 "update": 1,
 "values": [true]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_k5whp"]
 resource_name = "swing"
+length = 2.0
+loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -60,6 +74,18 @@ tracks/1/keys = {
 "update": 1,
 "values": [false, true]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1.0049007, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_fnw8x"]
 _data = {
@@ -74,7 +100,7 @@ script = ExtResource("1_s4ec8")
 texture = ExtResource("1_n355p")
 
 [node name="myhitbox" type="Area2D" parent="Sprite2D"]
-collision_layer = 2
+collision_layer = 4
 collision_mask = 0
 script = ExtResource("2_s4ec8")
 metadata/_custom_type_script = "uid://bxdajhytd0klh"
@@ -91,3 +117,5 @@ libraries = {
 }
 
 [connection signal="ready" from="." to="." method="_on_ready"]
+[connection signal="area_entered" from="Sprite2D/myhitbox" to="Sprite2D/myhitbox" method="_on_area_entered"]
+[connection signal="body_entered" from="Sprite2D/myhitbox" to="Sprite2D/myhitbox" method="_on_body_entered"]

@@ -1,16 +1,29 @@
 extends CharacterBody2D
-@onready var audio_stream_player: AudioStreamPlayer2D = $"../AudioStreamPlayer2D"
+
+@onready var audio_stream_player: AudioStreamPlayer2D = $"../AudioStreamPlayer2D"	
 @onready var audio_stream_player_2d: AudioStreamPlayer2D = $AudioStreamPlayer2D
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
+@onready var timer: Timer = $Timer
+@onready var timer_2: Timer = $Timer2
 
 
 var death: bool = false
 var raven = preload("res://scenes/raven.tscn")
-
+var sword = preload("res://scenes/sword.tscn")
+var yeah = preload("res://yeahihaveit.tscn")
 const SPEED = 130.0
 const JUMP_VELOCITY = -300.0
 const JUMP1_VELOCITY = -100
+var swordscene = sword.instantiate()
+var yeahscene = yeah.instantiate()
 
+
+func swordfree():
+	timer.start()
+	
+func _on_timer_timeout() -> void:
+	remove_child(swordscene)
+	
 #on death function
 func die():
 	death = true
@@ -31,7 +44,13 @@ func die():
 func _physics_process(delta: float) -> void:
 	#when pressed esc it call title screen scene
 	if Input.is_action_just_pressed("esc"):
-		get_tree().change_scene_to_file("res://scenes/title_screen.tscn")	
+		get_tree().change_scene_to_file("res://scenes/title_screen.tscn")		
+	if Input.is_action_just_pressed("hit"):
+		swordscene.position = Vector2(-7, 14)
+		add_child(swordscene)
+		swordscene.swing()
+		swordfree()
+		
 # Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
